@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23C7E77B25F7F0BA0060BE4F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C7E77A25F7F0BA0060BE4F /* Colors.swift */; };
 		23C9DB0925F69E7400ACE52F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C9DB0825F69E7400ACE52F /* AppDelegate.swift */; };
 		23C9DB0B25F69E7400ACE52F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C9DB0A25F69E7400ACE52F /* SceneDelegate.swift */; };
 		23C9DB1025F69E7400ACE52F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C9DB0E25F69E7400ACE52F /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23C7E77A25F7F0BA0060BE4F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		23C9DB0525F69E7400ACE52F /* Movie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C9DB0825F69E7400ACE52F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23C9DB0A25F69E7400ACE52F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23C7E77925F7F0A60060BE4F /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				23C7E77A25F7F0BA0060BE4F /* Colors.swift */,
+			);
+			path = Commons;
+			sourceTree = "<group>";
+		};
 		23C9DAFC25F69E7400ACE52F = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +135,7 @@
 		23C9DB0725F69E7400ACE52F /* Movie */ = {
 			isa = PBXGroup;
 			children = (
+				23C7E77925F7F0A60060BE4F /* Commons */,
 				23C9DB6E25F6A7FC00ACE52F /* BaseVIPERInterfaces */,
 				23C9DB4425F6A69F00ACE52F /* Scenes */,
 				23C9DB0825F69E7400ACE52F /* AppDelegate.swift */,
@@ -332,6 +343,7 @@
 				23C9DB7625F6A82D00ACE52F /* InteractorInterface.swift in Sources */,
 				23C9DB5F25F6A6F800ACE52F /* MovieListWireframe.swift in Sources */,
 				23C9DB5A25F6A6F800ACE52F /* MovieListInterfaces.swift in Sources */,
+				23C7E77B25F7F0BA0060BE4F /* Colors.swift in Sources */,
 				23C9DB0925F69E7400ACE52F /* AppDelegate.swift in Sources */,
 				23C9DB1325F69E7400ACE52F /* Movie.xcdatamodeld in Sources */,
 				23C9DB5E25F6A6F800ACE52F /* MovieListInteractor.swift in Sources */,

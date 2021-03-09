@@ -61,28 +61,39 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CHA-1u-Q7t">
-                                                    <rect key="frame" x="120" y="3.5" width="40" height="40"/>
-                                                    <color key="tintColor" name="ColdColor"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5V-l5-0B5">
+                                                    <rect key="frame" x="122" y="2" width="40" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="Gvb-20-EtM"/>
-                                                        <constraint firstAttribute="height" constant="40" id="Q2K-Am-dMN"/>
+                                                        <constraint firstAttribute="width" constant="40" id="4EC-NB-8Re"/>
+                                                        <constraint firstAttribute="height" constant="40" id="lHA-vh-3zo"/>
                                                     </constraints>
-                                                </imageView>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="tintColor" name="GoldColor"/>
+                                                    <inset key="imageEdgeInsets" minX="1" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" image="star" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="favButtonAction:" destination="yLi-lo-ZDn" eventType="touchUpInside" id="FbT-S1-3GR"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="dCO-pH-nqd" secondAttribute="trailing" constant="2" id="35A-Qa-51U"/>
                                                 <constraint firstAttribute="bottom" secondItem="dCO-pH-nqd" secondAttribute="bottom" constant="8" id="3g1-Sg-dxv"/>
-                                                <constraint firstAttribute="trailing" secondItem="CHA-1u-Q7t" secondAttribute="trailing" constant="4" id="FDw-tr-OVk"/>
+                                                <constraint firstAttribute="trailing" secondItem="O5V-l5-0B5" secondAttribute="trailing" constant="2" id="IHp-rQ-GvG"/>
                                                 <constraint firstItem="R9G-Db-fuf" firstAttribute="top" secondItem="sW3-BO-Nue" secondAttribute="top" constant="2" id="L8d-75-iMb"/>
-                                                <constraint firstItem="CHA-1u-Q7t" firstAttribute="top" secondItem="sW3-BO-Nue" secondAttribute="top" constant="4" id="Rx2-gd-XEv"/>
                                                 <constraint firstItem="dCO-pH-nqd" firstAttribute="top" secondItem="R9G-Db-fuf" secondAttribute="bottom" constant="8" id="Stv-13-rMw"/>
                                                 <constraint firstItem="dCO-pH-nqd" firstAttribute="leading" secondItem="sW3-BO-Nue" secondAttribute="leading" constant="2" id="eim-fN-L3R"/>
                                                 <constraint firstItem="R9G-Db-fuf" firstAttribute="leading" secondItem="sW3-BO-Nue" secondAttribute="leading" constant="2" id="g7B-vX-d9I"/>
+                                                <constraint firstItem="O5V-l5-0B5" firstAttribute="top" secondItem="sW3-BO-Nue" secondAttribute="top" constant="2" id="muV-Dn-2GE"/>
                                                 <constraint firstAttribute="trailing" secondItem="R9G-Db-fuf" secondAttribute="trailing" constant="2" id="w0Q-10-RC8"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" name="PrimaryColor"/>
+                                        <connections>
+                                            <outlet property="favButtonOutlet" destination="O5V-l5-0B5" id="aff-QP-KEL"/>
+                                            <outlet property="poster" destination="R9G-Db-fuf" id="ql3-Q6-NZq"/>
+                                            <outlet property="title" destination="dCO-pH-nqd" id="gEv-n1-f13"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -131,7 +142,7 @@
     <resources>
         <image name="MovieCellPlaceholderImage" width="60" height="60"/>
         <image name="star" catalog="system" width="128" height="116"/>
-        <namedColor name="ColdColor">
+        <namedColor name="GoldColor">
             <color red="0.97254901960784312" green="0.82352941176470584" blue="0.062745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="PrimaryColor">

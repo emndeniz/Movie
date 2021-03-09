@@ -51,6 +51,8 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
         //cell.imageView.image = article.image
         //cell.captionLabel.text = article.caption
         //cell.titleLabel.text = article.title
+        cell.setCellData()
+        cell.cellDelegate = self
         return cell
         
     }
@@ -78,4 +80,8 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
     }
 }
 
-
+extension MovieListViewController: MovieCellDelegate {
+    func didPressFavButton(isFavorited: Bool) {
+        print("didPressStartButton")
+    }
+}

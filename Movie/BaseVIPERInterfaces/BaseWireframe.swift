@@ -1,6 +1,10 @@
 import UIKit
 
 protocol WireframeInterface: AnyObject {
+    
+    func popFromNavigationController(animated:Bool)
+    func dismiss(animated:Bool)
+    func showAlert(with title:String?, message:String?, actions: [UIAlertAction])
 }
 
 class BaseWireframe {
@@ -18,6 +22,22 @@ class BaseWireframe {
 }
 
 extension BaseWireframe: WireframeInterface {
+    func popFromNavigationController(animated: Bool) {
+        navigationController?.popViewController(animated: animated)
+    }
+    
+    func dismiss(animated:Bool) {
+        navigationController?.dismiss(animated: animated)
+    }
+    
+    func showAlert(with title: String?, message: String?, actions: [UIAlertAction]) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        actions.forEach {
+            alert.addAction($0)
+        }
+        navigationController?.present(alert, animated: true, completion: nil)
+    }
+    
 
 }
 
