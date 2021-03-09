@@ -12,9 +12,25 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        //initializers.forEach { $0.performInitialization() }
+
+        if #available(iOS 13.0, *){
+            // Will handled in SceneDelegate
+        }else{
+            let intialController = UINavigationController()
+            intialController.setRootWireframe(MovieListWireframe())
+            
+            let window = UIWindow(frame: UIScreen.main.bounds)
+            self.window = window
+            
+            self.window?.rootViewController = intialController
+            self.window?.makeKeyAndVisible()
+            
+        }
         return true
     }
 
