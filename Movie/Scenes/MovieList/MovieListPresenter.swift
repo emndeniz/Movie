@@ -53,7 +53,7 @@ extension MovieListPresenter: MovieListPresenterInterface {
     }
     
     func getMovieCell(indexPath: IndexPath) -> MovieCellModel {
-        return formatter.getMovieCell(index: indexPath.row + (indexPath.section * 2))  ?? MovieCellModel(title: "", isFavourite: false)
+        return formatter.getMovieCell(index: indexPath.row + (indexPath.section * 2))  ?? MovieCellModel(title: "", isFavourite: false, posterUrl: "")
     }
     
     private func fetchMovies(){

@@ -42,7 +42,8 @@ extension MovieListFormatter: MovieListFormatterInterface {
         }
         let movie = results[index]
         return MovieCellModel(title: movie.title ?? "",
-                              isFavourite: false)
+                              isFavourite: false,
+                              posterUrl: movie.posterPath ?? "")
     }
     
     func calculateIndexPathsToReload(newResults: [MoviesModel.Result]) -> [IndexPath] {
