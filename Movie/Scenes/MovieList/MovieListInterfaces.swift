@@ -14,14 +14,24 @@ protocol MovieListWireframeInterface: WireframeInterface {
 }
 
 protocol MovieListViewInterface: ViewInterface {
+    func updateMovieList()
 }
 
 protocol MovieListPresenterInterface: PresenterInterface {
+    func fetchMoreMovie()
+    func getTotalNumberOfMovies() -> Int
+    func getCurrentNumberOfMovies() -> Int
+    func getMovieCell(indexPath:IndexPath) -> MovieCellModel
 }
 
 protocol MovieListFormatterInterface: FormatterInterface {
+    func appendMovieResponse(model:MoviesModel?)
+    func getMovieCell(index:Int) -> MovieCellModel?
+    func getTotalNumberOfMovies() -> Int
+    func getCurrentNumberOfMovies() -> Int
+    func calculateIndexPathsToReload(newResults: [MoviesModel.Result]) -> [IndexPath]
 }
 
 protocol MovieListInteractorInterface: InteractorInterface {
-    func getMovies(pageNum:Int)
+    func getMovies(pageNum:Int,completion: @escaping GetMoviesResult)
 }

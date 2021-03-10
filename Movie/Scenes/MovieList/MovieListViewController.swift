@@ -15,7 +15,8 @@ final class MovieListViewController: UIViewController {
     // MARK: - Public properties -
 
     var presenter: MovieListPresenterInterface!
-
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     private let itemsPerRow: CGFloat = 2
     private let sectionInsets = UIEdgeInsets(top: 15.0,left: 15.0,bottom: 15.0,right: 15.0)
     
@@ -24,15 +25,16 @@ final class MovieListViewController: UIViewController {
         super.viewDidLoad()
         presenter.viewDidLoad()
     }
-    
-    
-
 
 }
 
 // MARK: - Extensions -
 
 extension MovieListViewController: MovieListViewInterface {
+    func updateMovieList() {
+        collectionView.reloadData()
+    }
+    
 }
 
 extension MovieListViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -41,17 +43,20 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 8
+        return presenter.getTotalNumberOfMovies()/2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as? MovieCell else {
             return UICollectionViewCell()
         }
-        //cell.imageView.image = article.image
-        //cell.captionLabel.text = article.caption
-        //cell.titleLabel.text = article.title
-        cell.setCellData()
+        
+        if isLoadingCell(for: indexPath){
+            presenter.fetchMoreMovie()
+            cell.setCellData(data: nil)
+        }else {
+            cell.setCellData(data: presenter.getMovieCell(indexPath: indexPath))
+        }
         cell.cellDelegate = self
         return cell
         
@@ -78,6 +83,26 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
+}
+extension MovieListViewController : UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        print("Prefetch: \(indexPaths)")
+        if indexPaths.contains(where: isLoadingCell) {
+            presenter.fetchMoreMovie()
+         }
+    }
+    
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        let num = indexPath.row + indexPath.section * 2 + 10
+        let result = num >= presenter.getCurrentNumberOfMovies()
+        return result
+    }
+    
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = collectionView.indexPathsForVisibleItems
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+      }
 }
 
 extension MovieListViewController: MovieCellDelegate {

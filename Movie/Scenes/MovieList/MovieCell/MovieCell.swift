@@ -23,13 +23,23 @@ class MovieCell: UICollectionViewCell {
     private var isFavorited = false
     @IBAction func favButtonAction(_ sender: Any) {
         isFavorited = !isFavorited
-        let imageName = isFavorited ? "star.fill" : "star"
-        favButtonOutlet.setImage(UIImage(systemName: imageName), for: .normal)
+        updateFavoritesButton()
         cellDelegate?.didPressFavButton(isFavorited: isFavorited)
     }
     
-    func setCellData(){
-       
+    func setCellData(data:MovieCellModel?){
+        guard let data = data else {
+            return
+        }
+        
+        title.text = data.title
+        isFavorited = data.isFavourite
+        updateFavoritesButton()
+    }
+    
+    private func updateFavoritesButton(){
+        let imageName = isFavorited ? "star.fill" : "star"
+        favButtonOutlet.setImage(UIImage(systemName: imageName), for: .normal)
     }
   
 }

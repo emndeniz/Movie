@@ -4,7 +4,7 @@ protocol WireframeInterface: AnyObject {
     
     func popFromNavigationController(animated:Bool)
     func dismiss(animated:Bool)
-    func showAlert(with title:String?, message:String?, actions: [UIAlertAction])
+    func showAlert(title:String?, message:String?, actions: [UIAlertAction])
 }
 
 class BaseWireframe {
@@ -30,7 +30,7 @@ extension BaseWireframe: WireframeInterface {
         navigationController?.dismiss(animated: animated)
     }
     
-    func showAlert(with title: String?, message: String?, actions: [UIAlertAction]) {
+    func showAlert(title: String?, message: String?, actions: [UIAlertAction]) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         actions.forEach {
             alert.addAction($0)

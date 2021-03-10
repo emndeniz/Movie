@@ -99,6 +99,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="VIY-2k-kC1"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="6tt-ks-hp2"/>
+                                    <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="MZj-DH-hrm"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -115,6 +116,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Movies" id="07p-3o-X4d"/>
+                    <connections>
+                        <outlet property="collectionView" destination="K2L-yi-DkM" id="UlQ-wH-JpY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
