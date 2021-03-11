@@ -117,6 +117,15 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
         navigationController?.pushWireframe(wireframe)
         
     }
+    
+   private func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        if isSearching {
+            return false
+        }
+        let num = indexPath.row + indexPath.section * 2 + 10 // Request movies earlier with adding 10 
+        let result = num >= presenter.getCurrentNumberOfMovies(isFiltered: isSearching)
+        return result
+    }
 }
 extension MovieListViewController : UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
@@ -124,21 +133,6 @@ extension MovieListViewController : UICollectionViewDataSourcePrefetching {
         if indexPaths.contains(where: isLoadingCell) {
             presenter.fetchMoreMovie()
         }
-    }
-    
-    func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        if isSearching {
-            return false
-        }
-        let num = indexPath.row + indexPath.section * 2 + 10
-        let result = num >= presenter.getCurrentNumberOfMovies(isFiltered: isSearching)
-        return result
-    }
-    
-    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
-        let indexPathsForVisibleRows = collectionView.indexPathsForVisibleItems
-        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
-        return Array(indexPathsIntersection)
     }
 }
 

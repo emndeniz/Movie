@@ -216,6 +216,7 @@
 				23C7E7F625F8064D0060BE4F /* MovieListFormatter.swift */,
 				23C7E7F725F8064D0060BE4F /* MovieListInteractor.swift */,
 				23C7E7F825F8064D0060BE4F /* MovieListWireframe.swift */,
+				23C9DB0E25F69E7400ACE52F /* Main.storyboard */,
 			);
 			path = MovieList;
 			sourceTree = "<group>";
@@ -250,7 +251,6 @@
 				23C9DB4425F6A69F00ACE52F /* Scenes */,
 				23C9DB0825F69E7400ACE52F /* AppDelegate.swift */,
 				23C9DB0A25F69E7400ACE52F /* SceneDelegate.swift */,
-				23C9DB0E25F69E7400ACE52F /* Main.storyboard */,
 				23C9DB1425F69E7700ACE52F /* Assets.xcassets */,
 				23C9DB1625F69E7700ACE52F /* LaunchScreen.storyboard */,
 				23C9DB1925F69E7700ACE52F /* Info.plist */,

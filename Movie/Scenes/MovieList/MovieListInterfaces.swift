@@ -31,7 +31,6 @@ protocol MovieListFormatterInterface: FormatterInterface {
     func startLocalSearch(filter:String)
     func getTotalNumberOfMovies() -> Int
     func getCurrentNumberOfMovies(isFiltered: Bool) -> Int
-    func calculateIndexPathsToReload(newResults: [MoviesModel.Result]) -> [IndexPath]
 }
 
 protocol MovieListInteractorInterface: InteractorInterface {

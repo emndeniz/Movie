@@ -14,4 +14,5 @@ public extension UIColor  {
     static let movie_PrimaryColor = UIColor(named: "PrimaryColor")
     static let movie_RedColor = UIColor(named: "RedColor")
     static let movie_YellowColor = UIColor(named: "YellowColor")
+    static let movie_DefaultBackgroundColor = UIColor(named: "DefaultBackgroundColor")
 }
