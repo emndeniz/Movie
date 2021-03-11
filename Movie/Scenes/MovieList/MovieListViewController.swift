@@ -21,9 +21,10 @@ final class MovieListViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     
-
+    // Required constants to show 2 cell in a Collection Section
     private let itemsPerRow: CGFloat = 2
     private let sectionInsets = UIEdgeInsets(top: 15.0,left: 15.0,bottom: 15.0,right: 15.0)
+    
     private var searchQuerry:String?
     private var isSearching = false
     
@@ -75,10 +76,12 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
         }
         
         if loadingIdicator.isAnimating {
+            // Stop indicator when cells begin to load
             loadingIdicator.stopAnimating()
         }
         
         if isLoadingCell(for: indexPath){
+            // We need to fecth more data in here
             presenter.fetchMoreMovie()
             loadingIdicator.startAnimating()
         }else {

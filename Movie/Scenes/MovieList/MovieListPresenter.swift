@@ -55,6 +55,7 @@ extension MovieListPresenter: MovieListPresenterInterface {
     }
     
     func getMovieCell(indexPath: IndexPath,  isFiltered:Bool) -> MovieCellModel {
+        // Indexpath calculation required to obtain required cells for 2 row in a setion collection view
         return formatter.getMovieCell(index: indexPath.row + (indexPath.section * 2), isFiltered: isFiltered)
     }
     

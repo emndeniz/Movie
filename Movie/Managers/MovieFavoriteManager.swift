@@ -9,8 +9,13 @@ import UIKit
 import CoreData
 
 struct MovieFavoriteManager {
-    let entityName = "FavoriteMovies"
+    private let entityName = "FavoriteMovies"
+    private let movieIdKey = "movieId"
+    
 
+    
+    /// Add movie to favorites list in core data
+    /// - Parameter id: Movie Id
     func addMovieToFavorites(id:Int){
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -19,7 +24,7 @@ struct MovieFavoriteManager {
         let managedContext = appDelegate.persistentContainer.viewContext
         if let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext){
             let item  = NSManagedObject(entity: entity, insertInto: managedContext)
-            item.setValue(id, forKeyPath: "movieId")
+            item.setValue(id, forKeyPath: movieIdKey)
             
             do {
                 try managedContext.save()
@@ -29,6 +34,8 @@ struct MovieFavoriteManager {
         }
     }
     
+    /// Remove movie from favorites list in core data
+    /// - Parameter id: Movie Id
     func removeFromFavorites(id:Int){
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -39,7 +46,7 @@ struct MovieFavoriteManager {
         do {
             let fetchResults = try managedContext.fetch(fetchRequest)
             for item in fetchResults as! [NSManagedObject]{
-                if let favMovieId = item.value(forKeyPath: "movieId") as? Int, favMovieId == id{
+                if let favMovieId = item.value(forKeyPath: movieIdKey) as? Int, favMovieId == id{
                     managedContext.delete(item)
                 }
             }
@@ -51,6 +58,9 @@ struct MovieFavoriteManager {
     
     
     
+    /// Shows that is given movie is favorited or not.
+    /// - Parameter id: Movie Id
+    /// - Returns: isFavorited
     func isMovieFavorite(id:Int) -> Bool{
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return false
@@ -62,7 +72,7 @@ struct MovieFavoriteManager {
             let fetchResults = try managedContext.fetch(fetchRequest)
             //var favoritedMoviesIds = [Int]()
             for item in fetchResults as! [NSManagedObject]{
-                if let favMovieId = item.value(forKeyPath: "movieId") as? Int, favMovieId == id{
+                if let favMovieId = item.value(forKeyPath: movieIdKey) as? Int, favMovieId == id{
                     return true
                 }
             }
