@@ -13,7 +13,7 @@ MovieDetail scene shows detail about movies.
 Movie app has 4 basic structure. Scenes, Networking layer, Managers, Common utility files. 
 Application implemented using Protocol Design Oriented approach with VIPER architecture.
 
-###Scenes
+### Scenes
 
 Scenes includes VIPER scenes as name implies. Wireframes packages all VIPER flow in it. When View Controller initated, Wireframes also initated required Formatters, Presenters and Interactors. All modules have protocols as Protocol Oriented Design suggests.
 
