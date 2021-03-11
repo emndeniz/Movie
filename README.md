@@ -42,6 +42,7 @@ provider.load(service: .movieDetail(id: movieId), decodeType: MovieDetailModel.s
     }
  }
 ```
+
 ## Commons
 
 Commons are containing utility functions which can be useful for all of the application.
