@@ -11,39 +11,62 @@
 import UIKit
 
 final class MovieListViewController: UIViewController {
-
+    
     // MARK: - Public properties -
-
+    
     var presenter: MovieListPresenterInterface!
+    @IBOutlet weak var loadingIdicator: UIActivityIndicatorView!
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
+
     private let itemsPerRow: CGFloat = 2
     private let sectionInsets = UIEdgeInsets(top: 15.0,left: 15.0,bottom: 15.0,right: 15.0)
+    private var searchQuerry:String?
+    private var isSearching = false
     
     // MARK: - Lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.viewDidLoad()
+        loadingIdicator.startAnimating()
     }
-
+    
+    
+    private func reloadCollectionViewData(){
+        collectionView.reloadData()
+    }
 }
 
 // MARK: - Extensions -
 
 extension MovieListViewController: MovieListViewInterface {
     func updateMovieList() {
-        collectionView.reloadData()
+        reloadCollectionViewData()
     }
-    
 }
 
 extension MovieListViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        let availableMovieCount = presenter.getCurrentNumberOfMovies(isFiltered: isSearching)
+        if section * 2 + 1 == availableMovieCount { //Prevent adding more items in section if not available
+            return 1
+        }
         return 2
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return presenter.getTotalNumberOfMovies()/2
+        if isSearching {
+            // Calculation require in case current movie number is odd
+            let num: Double = Double(presenter.getCurrentNumberOfMovies(isFiltered: isSearching))/2
+            return Int(num.rounded(.up))
+        }else {
+            return presenter.getTotalNumberOfMovies()/2
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -51,11 +74,15 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
             return UICollectionViewCell()
         }
         
+        if loadingIdicator.isAnimating {
+            loadingIdicator.stopAnimating()
+        }
+        
         if isLoadingCell(for: indexPath){
             presenter.fetchMoreMovie()
-            cell.setCellData(data: nil)
+            loadingIdicator.startAnimating()
         }else {
-            cell.setCellData(data: presenter.getMovieCell(indexPath: indexPath))
+            cell.setCellData(data: presenter.getMovieCell(indexPath: indexPath, isFiltered: isSearching))
         }
         cell.cellDelegate = self
         return cell
@@ -89,12 +116,15 @@ extension MovieListViewController : UICollectionViewDataSourcePrefetching {
         print("Prefetch: \(indexPaths)")
         if indexPaths.contains(where: isLoadingCell) {
             presenter.fetchMoreMovie()
-         }
+        }
     }
     
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        if isSearching {
+            return false
+        }
         let num = indexPath.row + indexPath.section * 2 + 10
-        let result = num >= presenter.getCurrentNumberOfMovies()
+        let result = num >= presenter.getCurrentNumberOfMovies(isFiltered: isSearching)
         return result
     }
     
@@ -102,11 +132,48 @@ extension MovieListViewController : UICollectionViewDataSourcePrefetching {
         let indexPathsForVisibleRows = collectionView.indexPathsForVisibleItems
         let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
         return Array(indexPathsIntersection)
-      }
+    }
 }
 
 extension MovieListViewController: MovieCellDelegate {
     func didPressFavButton(isFavorited: Bool) {
         print("didPressStartButton")
+    }
+}
+
+
+extension MovieListViewController : UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+        if searchText.isEmpty {
+            // Search query deleted
+            isSearching = false
+            reloadCollectionViewData()
+        }else {
+            // Search query appending
+            isSearching = true
+            presenter.startLocalSearch(filter:searchText)
+            reloadCollectionViewData()
+        }
+      
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+        isSearching = false
+        reloadCollectionViewData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = true
+        if let querry = searchBar.text {
+            presenter.startLocalSearch(filter:querry)
+            reloadCollectionViewData()
+            searchBar.resignFirstResponder()
+        }
     }
 }

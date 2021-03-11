@@ -12,19 +12,48 @@ import UIKit
 
 final class MovieListFormatter {
     var results: [MoviesModel.Result] = []
-    //var totalNumberOfPages = 0
+    var filteredResults: [MoviesModel.Result] = []
     var totalResults = 0
 }
 
 // MARK: - Extensions -
 
 extension MovieListFormatter: MovieListFormatterInterface {
+    func getMovieCell(index: Int, isFiltered: Bool) -> MovieCellModel {
+        guard results.count > 0 else {
+            // Return empty data
+            return MovieCellModel(title: "", isFavourite: false, posterUrl: "")
+        }
+        
+        let movie: MoviesModel.Result!
+        
+        if isFiltered {
+            movie = filteredResults[index]
+        }else {
+            movie = results[index]
+        }
+        
+        return MovieCellModel(title: movie.title ?? "",
+                              isFavourite: false,
+                              posterUrl: movie.posterPath ?? "")
+    }
+    
+    func startLocalSearch(filter: String) {
+        filteredResults = results.filter{ ($0.title?.contains(filter) ?? false)}
+    }
+    
+    
     func getTotalNumberOfMovies() -> Int {
         return totalResults
     }
     
-    func getCurrentNumberOfMovies() -> Int {
-        return results.count
+    func getCurrentNumberOfMovies( isFiltered: Bool) -> Int {
+        if isFiltered {
+            return filteredResults.count
+        }else {
+            return results.count
+        }
+
     }
     
     func appendMovieResponse(model:MoviesModel?) {
@@ -36,15 +65,7 @@ extension MovieListFormatter: MovieListFormatterInterface {
         }
     }
     
-    func getMovieCell(index: Int) -> MovieCellModel? {
-        guard results.count > 0 else {
-            return nil
-        }
-        let movie = results[index]
-        return MovieCellModel(title: movie.title ?? "",
-                              isFavourite: false,
-                              posterUrl: movie.posterPath ?? "")
-    }
+    
     
     func calculateIndexPathsToReload(newResults: [MoviesModel.Result]) -> [IndexPath] {
       let startIndex = results.count - newResults.count

@@ -36,6 +36,8 @@ final class MovieListPresenter {
 
 extension MovieListPresenter: MovieListPresenterInterface {
 
+
+
     func fetchMoreMovie() {
         fetchMovies()
     }
@@ -48,13 +50,18 @@ extension MovieListPresenter: MovieListPresenterInterface {
         return formatter.getTotalNumberOfMovies()
     }
     
-    func getCurrentNumberOfMovies() -> Int {
-        return formatter.getCurrentNumberOfMovies()
+    func getCurrentNumberOfMovies(isFiltered:Bool) -> Int {
+        return formatter.getCurrentNumberOfMovies(isFiltered: isFiltered)
     }
     
-    func getMovieCell(indexPath: IndexPath) -> MovieCellModel {
-        return formatter.getMovieCell(index: indexPath.row + (indexPath.section * 2))  ?? MovieCellModel(title: "", isFavourite: false, posterUrl: "")
+    func getMovieCell(indexPath: IndexPath,  isFiltered:Bool) -> MovieCellModel {
+        return formatter.getMovieCell(index: indexPath.row + (indexPath.section * 2), isFiltered: isFiltered)
     }
+    
+    func startLocalSearch(filter: String) {
+        formatter.startLocalSearch(filter:filter)
+    }
+    
     
     private func fetchMovies(){
         guard !isFetchInProgress else {

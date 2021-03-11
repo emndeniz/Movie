@@ -20,15 +20,17 @@ protocol MovieListViewInterface: ViewInterface {
 protocol MovieListPresenterInterface: PresenterInterface {
     func fetchMoreMovie()
     func getTotalNumberOfMovies() -> Int
-    func getCurrentNumberOfMovies() -> Int
-    func getMovieCell(indexPath:IndexPath) -> MovieCellModel
+    func getCurrentNumberOfMovies(isFiltered: Bool) -> Int
+    func getMovieCell(indexPath:IndexPath, isFiltered:Bool) -> MovieCellModel
+    func startLocalSearch(filter:String)
 }
 
 protocol MovieListFormatterInterface: FormatterInterface {
     func appendMovieResponse(model:MoviesModel?)
-    func getMovieCell(index:Int) -> MovieCellModel?
+    func getMovieCell(index:Int, isFiltered:Bool) -> MovieCellModel
+    func startLocalSearch(filter:String)
     func getTotalNumberOfMovies() -> Int
-    func getCurrentNumberOfMovies() -> Int
+    func getCurrentNumberOfMovies(isFiltered: Bool) -> Int
     func calculateIndexPathsToReload(newResults: [MoviesModel.Result]) -> [IndexPath]
 }
 

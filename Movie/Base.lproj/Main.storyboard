@@ -102,13 +102,24 @@
                                     <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="MZj-DH-hrm"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="tVg-UN-6Hc">
+                                <rect key="frame" x="187" y="428" width="40" height="40"/>
+                                <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="4gu-Qz-MmV"/>
+                                    <constraint firstAttribute="height" constant="40" id="NdU-4R-BWg"/>
+                                </constraints>
+                                <color key="color" name="PrimaryColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="tVg-UN-6Hc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="48c-Xa-Ud5"/>
                             <constraint firstItem="K2L-yi-DkM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="6IG-TE-05u"/>
                             <constraint firstItem="OhX-hY-cKV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EIl-1B-M4i"/>
                             <constraint firstAttribute="bottom" secondItem="K2L-yi-DkM" secondAttribute="bottom" id="M30-ed-ygq"/>
+                            <constraint firstItem="tVg-UN-6Hc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jVg-dw-YyK"/>
                             <constraint firstItem="OhX-hY-cKV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kmF-Lx-Zv5"/>
                             <constraint firstItem="K2L-yi-DkM" firstAttribute="top" secondItem="OhX-hY-cKV" secondAttribute="bottom" id="rGE-Mj-asu"/>
                             <constraint firstItem="OhX-hY-cKV" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sf1-n7-jVH"/>
@@ -118,6 +129,8 @@
                     <navigationItem key="navigationItem" title="Movies" id="07p-3o-X4d"/>
                     <connections>
                         <outlet property="collectionView" destination="K2L-yi-DkM" id="UlQ-wH-JpY"/>
+                        <outlet property="loadingIdicator" destination="tVg-UN-6Hc" id="ZbH-AV-uXA"/>
+                        <outlet property="searchBar" destination="OhX-hY-cKV" id="7Na-tQ-rrB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
