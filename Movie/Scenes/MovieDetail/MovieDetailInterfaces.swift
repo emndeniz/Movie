@@ -19,6 +19,7 @@ protocol MovieDetailViewInterface: ViewInterface {
 
 protocol MovieDetailPresenterInterface: PresenterInterface {
     func getTitle() -> String
+    func getMovieId() -> Int
 }
 
 protocol MovieDetailFormatterInterface: FormatterInterface {

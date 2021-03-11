@@ -22,8 +22,7 @@ final class MovieDetailViewController: UIViewController {
     @IBOutlet weak var voteCountLabel: UILabel!
 
     var presenter: MovieDetailPresenterInterface!
-    
-    private var isFavorited = false
+   
     
     // MARK: - Lifecycle -
     
@@ -33,19 +32,24 @@ final class MovieDetailViewController: UIViewController {
         presenter.viewDidLoad()
         
         movieTitle.text = presenter.getTitle()
+        
+        let favoriteIconName = MovieFavoriteManager().isMovieFavorite(id: presenter.getMovieId()) ? "star.fill" : "star"
+        favoriteIcon.image = UIImage(systemName: favoriteIconName)
     }
     
     @IBAction func favoriteImageAction(_ sender: Any) {
-        toggleFavoriteImage(isFavorited: !isFavorited)
+
+        toggleFavoriteMovieStatus()
     }
     
-    private func toggleFavoriteImage(isFavorited:Bool){
-        if isFavorited{
-            favoriteIcon.image = UIImage(systemName: "star.fill")
-        }else {
+    private func toggleFavoriteMovieStatus(){
+        if MovieFavoriteManager().isMovieFavorite(id: presenter.getMovieId()){
+            MovieFavoriteManager().removeFromFavorites(id: presenter.getMovieId())
             favoriteIcon.image = UIImage(systemName: "star")
+        }else {
+            MovieFavoriteManager().addMovieToFavorites(id: presenter.getMovieId())
+            favoriteIcon.image = UIImage(systemName: "star.fill")
         }
-        self.isFavorited = isFavorited
     }
     
 }
@@ -57,7 +61,7 @@ extension MovieDetailViewController: MovieDetailViewInterface {
         movieDescription.text = model.description
         voteRateLabel.text = String(model.voteAvarage)
         voteCountLabel.text = String(model.voteCount)
-        toggleFavoriteImage(isFavorited: model.isFavourite)
+        //toggleFavoriteImage(isFavorited: model.isFavourite)
         
         if let url = ImageViewHelper.createImageURL(posterPath: model.posterUrl, size: 500) {
             moviePoster.load(url: url)

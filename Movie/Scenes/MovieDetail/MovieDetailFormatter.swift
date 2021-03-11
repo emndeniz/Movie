@@ -20,7 +20,6 @@ extension MovieDetailFormatter: MovieDetailFormatterInterface {
     func getMovieDetailViewModel(response:MovieDetailModel) -> MovieDetailViewModel {
     
         return MovieDetailViewModel(title: response.title ?? "",
-                                    isFavourite: false, //TODO will add fav logic
                                     posterUrl: response.posterPath ?? "",
                                     description: response.overview ?? "",
                                     voteCount: response.voteCount ?? 0,

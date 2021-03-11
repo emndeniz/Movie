@@ -9,7 +9,6 @@ import Foundation
 
 struct MovieDetailViewModel {
     let title: String
-    let isFavourite: Bool
     let posterUrl: String
     let description:String
     let voteCount: Int

@@ -36,6 +36,10 @@ final class MovieDetailPresenter {
 // MARK: - Extensions -
 
 extension MovieDetailPresenter: MovieDetailPresenterInterface {
+    func getMovieId() -> Int {
+        return movieId
+    }
+    
 
     func getTitle() -> String {
         return title
