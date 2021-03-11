@@ -10,6 +10,5 @@ import Foundation
 struct MovieCellModel {
     let id:Int
     let title: String
-    let isFavourite: Bool
     let posterUrl: String
 }

@@ -7,24 +7,18 @@
 
 import UIKit
 
-protocol MovieCellDelegate : class {
-    func didPressFavButton(isFavorited:Bool)
-}
 
 class MovieCell: UICollectionViewCell {
-    var cellDelegate: MovieCellDelegate?
     
     @IBOutlet weak var poster: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var favButtonOutlet: UIButton!
     
-    //private var movieID:
+    private var movieId = -1
     
-    private var isFavorited = false
+   // private var isFavorited = false
     @IBAction func favButtonAction(_ sender: Any) {
-        isFavorited = !isFavorited
-        updateFavoritesButton()
-        cellDelegate?.didPressFavButton(isFavorited: isFavorited)
+        toggleFavoriteMovieStatus()
     }
     
     func setCellData(data:MovieCellModel?){
@@ -32,8 +26,8 @@ class MovieCell: UICollectionViewCell {
             return
         }
         
+        movieId = data.id
         title.text = data.title
-        isFavorited = data.isFavourite
         updateFavoritesButton()
 
         if let url = ImageViewHelper.createImageURL(posterPath: data.posterUrl, size: 200){
@@ -42,8 +36,21 @@ class MovieCell: UICollectionViewCell {
     }
     
     private func updateFavoritesButton(){
-        let imageName = isFavorited ? "star.fill" : "star"
-        favButtonOutlet.setImage(UIImage(systemName: imageName), for: .normal)
+        if MovieFavoriteManager().isMovieFavorite(id: movieId){
+            MovieFavoriteManager().addMovieToFavorites(id: movieId)
+            favButtonOutlet.setImage( UIImage(systemName: "star.fill"), for: .normal)
+        }
+    }
+    
+    
+    private func toggleFavoriteMovieStatus(){
+        if MovieFavoriteManager().isMovieFavorite(id: movieId){
+            MovieFavoriteManager().removeFromFavorites(id: movieId)
+            favButtonOutlet.setImage( UIImage(systemName: "star"), for: .normal)
+        }else {
+            MovieFavoriteManager().addMovieToFavorites(id: movieId)
+            favButtonOutlet.setImage( UIImage(systemName: "star.fill"), for: .normal)
+        }
     }
   
 }

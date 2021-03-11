@@ -84,7 +84,6 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
         }else {
             cell.setCellData(data: presenter.getMovieCell(indexPath: indexPath, isFiltered: isSearching))
         }
-        cell.cellDelegate = self
         return cell
         
     }
@@ -116,7 +115,6 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
         let movieData = presenter.getMovieCell(indexPath: indexPath, isFiltered: isSearching)
         let wireframe = MovieDetailWireframe(movieId: movieData.id, title: movieData.title)
         navigationController?.pushWireframe(wireframe)
-    //    presentWireframe(wireframe)
         
     }
 }
@@ -141,12 +139,6 @@ extension MovieListViewController : UICollectionViewDataSourcePrefetching {
         let indexPathsForVisibleRows = collectionView.indexPathsForVisibleItems
         let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
         return Array(indexPathsIntersection)
-    }
-}
-
-extension MovieListViewController: MovieCellDelegate {
-    func didPressFavButton(isFavorited: Bool) {
-        print("didPressStartButton")
     }
 }
 
