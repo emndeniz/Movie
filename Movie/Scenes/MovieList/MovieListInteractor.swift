@@ -23,9 +23,9 @@ extension MovieListInteractor: MovieListInteractorInterface {
         let pageNumStr = String(pageNum)
         provider.load(service: .popularMovies(page: pageNumStr), decodeType: MoviesModel.self) { result in
             switch result {
-                case .success(let resp):
-                    print("getMovies success data received, response: \(resp)")
-                    completion(resp)
+                case .success(let response):
+                    print("getMovies success data received, response: \(response)")
+                    completion(response)
                 case .failure(let error):
                     print("getMovies fail data received, error: \(error.localizedDescription)")
                     completion(nil)

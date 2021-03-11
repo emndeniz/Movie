@@ -36,7 +36,7 @@ class MovieCell: UICollectionViewCell {
         isFavorited = data.isFavourite
         updateFavoritesButton()
 
-        if let url = ImageViewHelper.createImageURL(posterPath: data.posterUrl){
+        if let url = ImageViewHelper.createImageURL(posterPath: data.posterUrl, size: 200){
             poster.load(url: url)
         }
     }

@@ -22,7 +22,7 @@ extension MovieListFormatter: MovieListFormatterInterface {
     func getMovieCell(index: Int, isFiltered: Bool) -> MovieCellModel {
         guard results.count > 0 else {
             // Return empty data
-            return MovieCellModel(title: "", isFavourite: false, posterUrl: "")
+            return MovieCellModel(id: -1, title: "", isFavourite: false, posterUrl: "")
         }
         
         let movie: MoviesModel.Result!
@@ -33,7 +33,8 @@ extension MovieListFormatter: MovieListFormatterInterface {
             movie = results[index]
         }
         
-        return MovieCellModel(title: movie.title ?? "",
+        return MovieCellModel(id: movie.id ?? -1,
+                              title: movie.title ?? "",
                               isFavourite: false,
                               posterUrl: movie.posterPath ?? "")
     }

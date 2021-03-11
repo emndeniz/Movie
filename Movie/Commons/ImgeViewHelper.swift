@@ -9,8 +9,8 @@ import UIKit
 
 
 struct ImageViewHelper {
-    static func createImageURL(posterPath:String) -> URL? {
-        let urlStr = "https://image.tmdb.org/t/p/w200" + posterPath
+    static func createImageURL(posterPath:String,size:Int) -> URL? {
+        let urlStr = "https://image.tmdb.org/t/p/w" + String(size) + posterPath
         return URL(string: urlStr)
     }
 }

@@ -110,6 +110,15 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movieData = presenter.getMovieCell(indexPath: indexPath, isFiltered: isSearching)
+        let wireframe = MovieDetailWireframe(movieId: movieData.id, title: movieData.title)
+        navigationController?.pushWireframe(wireframe)
+    //    presentWireframe(wireframe)
+        
+    }
 }
 extension MovieListViewController : UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
